@@ -5,76 +5,129 @@
     <title>Restaurants</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #faf9f7;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f7f3;
+            margin:0;
+            padding:0; }
         .container {
-            max-width: 800px;
-            margin: 0 auto;
+            width: 90%;
+            max-width: 700px;
+            margin: 50px auto;
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
-            color: #d97706;
+            color: #d47300;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        ul {
-            list-style: none;
-            padding: 0;
+        h1::before {
+            content: "🍽️";
         }
-        li {
+        .restaurant-card {
+            background: #fff7ec;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #fff6e5;
-            margin-bottom: 10px;
-            padding: 10px 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .restaurant-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .restaurant-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #b25100;
+            text-decoration: none;
+        }
+
+        .restaurant-name:hover {
+            text-decoration: underline;
+        }
+        .restaurant-location {
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 2px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        input[type="text"] {
+            flex: 1 1 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
             border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #28a745;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
             transition: background 0.2s;
         }
-        li:hover {
-            background: #ffecc7;
+
+        button:hover {
+            background: #218838;
         }
-        a {
-            text-decoration: none;
-            color: #b45309;
-            font-weight: bold;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            background: #d97706;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 6px;
+        .nav-links {
+            margin-top: 30px;
             text-align: center;
-            text-decoration: none;
         }
-        .btn:hover {
-            background: #b45309;
+        .nav-links a {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #0056b3;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🍴 Restaurants</h1>
-    <ul>
-        <li th:each="r : ${restaurants}">
-            <div>
-                <a th:href="@{/restaurants/{id}(id=${r.id})}" th:text="${r.name}"></a><br>
-                <small th:text="${r.cuisine} + ' • ' + ${r.location}"></small>
-            </div>
-            <span>⭐ <span th:text="${r.rating}"></span></span>
-        </li>
-    </ul>
+    <h1>Restaurants</h1>
 
-    <div style="text-align:center;">
-        <a href="/meals" class="btn">View all meals 🍔</a>
+    <div class="restaurant-list">
+        <div th:each="restaurant : ${restaurants}" class="restaurant-card">
+            <div class="restaurant-info">
+                <a th:href="@{/restaurants/action/{id}(id=${restaurant.id})}"
+                   th:text="${restaurant.name}" class="restaurant-name">Restaurant Name</a>
+                <div class="restaurant-location"
+                     th:text="${restaurant.location}">Location</div>
+            </div>
+        </div>
+    </div>
+
+
+    <form th:action="@{/restaurants/add}" method="post">
+        <input type="text" name="name" placeholder="Restaurant Name" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <button type="submit">+ Add Restaurant</button>
+    </form>
+
+    <div class="nav-links">
+        <a href="/meals">View All Meals In The App</a>
     </div>
 </div>
 </body>
