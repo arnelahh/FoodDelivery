@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurants</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #faf9f7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #d97706;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff6e5;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        li:hover {
+            background: #ffecc7;
+        }
+        a {
+            text-decoration: none;
+            color: #b45309;
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #d97706;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: #b45309;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🍴 Restaurants</h1>
+    <ul>
+        <li th:each="r : ${restaurants}">
+            <div>
+                <a th:href="@{/restaurants/{id}(id=${r.id})}" th:text="${r.name}"></a><br>
+                <small th:text="${r.cuisine} + ' • ' + ${r.location}"></small>
+            </div>
+            <span>⭐ <span th:text="${r.rating}"></span></span>
+        </li>
+    </ul>
+
+    <div style="text-align:center;">
+        <a href="/meals" class="btn">View all meals 🍔</a>
+    </div>
+</div>
+</body>
+</html>
