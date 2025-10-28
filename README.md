@@ -1,6 +1,6 @@
 # FoodDelivery
 
-FoodDelivery je jednostavna aplikacija za naručivanje hrane razvijena koristeći **Java**, **Spring Boot**, i **Thymeleaf**. 
+FoodDelivery je jednostavna aplikacija za naručivanje hrane razvijena koristeći **Java**, **Spring Boot**, i **Thymeleaf** i MVC struktura. 
 Omogućava korisnicima pregled restorana, jela i dodavanje novih restorana i jela putem web sučelja.
 Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narudžbe.
 
@@ -20,28 +20,39 @@ Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narud�
 - **Maven** za upravljanje zavisnostima
 - HTML/CSS za front-end
 
-  FoodDelivery/
-│
-├── src/
-│ ├── main/
-│ │ ├── java/com/arnela/foodapp/
-│ │ │ ├── controller/ # Sadrži Spring kontrolere koji obrađuju HTTP zahtjeve i povezuju servisni sloj s front-endom
-│ │ │ ├── model/ # Java klase koje predstavljaju entitete (Restaurant, Meal i Order)
-│ │ │ ├── service/ # Logika aplikacije – dodavanje restorana, jela, dohvat podataka
-│ │ │ └── FoodAppApplication.java # Glavna klasa za pokretanje Spring Boot aplikacije
-│ │ │
-│ │ └── resources/
-│ │ ├── templates/ # Thymeleaf HTML šabloni za prikaz podataka u web pregledniku
-│ │ │ ├── meals.html
-│ │ │ ├── restaurants.html
-│ │ │ └── order.html
-| | | |__ active.html
-│ │ ├── static/ # CSS, JS i slike
-│ │ │ ├── css/
-│ │ │ └── js/
-│ │ └── application.properties # Konfiguracija aplikacije (port, logovanje itd.)
-│ │
-│ └── test/ # Jedinični testovi za servise i kontrolere
-│
-├── pom.xml # Maven konfiguracija, zavisnosti i plugin-ovi
-└── README.md # Ovaj fajl s uputama i opisom projekta
+Modeli:
+- Meal
+- Restaurant
+- Order
+
+Views:
+- meals
+- restaurants
+- order
+- action
+
+Controller:
+- AppController
+
+U prilogu slike projekta:
+1. /restaurants je prva stranica koja nas dočeka
+   <img width="1920" height="980" alt="image" src="https://github.com/user-attachments/assets/364814bb-46a9-4b65-bfc4-b7404c10db6c" />
+
+2. Pregled svih jela koja se nalaze u DemoData
+   <img width="1920" height="680" alt="image" src="https://github.com/user-attachments/assets/b9c250f7-afe5-48f7-8181-d8f0bd24b15a" />
+
+3. Pregled svih jela u jednom restoranu
+  <img width="1920" height="970" alt="image" src="https://github.com/user-attachments/assets/47346ada-3c7f-451b-ab87-087fa801a6a3" />
+
+4. Narudžbe
+  <img width="1920" height="971" alt="image" src="https://github.com/user-attachments/assets/e6c3ff0c-0c37-4127-adf4-27e634f6bd65" />
+
+5. Dodavanje novog jela u restoranu (Hamburger u Fast Food)
+<img width="1920" height="970" alt="image" src="https://github.com/user-attachments/assets/13335c70-2edc-4db8-9c4b-57d5d675aa74" />
+Automatski se ažurira i spisak svih jela u aplikaciji
+<img width="1920" height="942" alt="image" src="https://github.com/user-attachments/assets/c58af08c-0e51-49e7-bfea-19b0cdbff473" />
+
+7. Dodavanje novog restorana Chinese
+   <img width="1920" height="860" alt="image" src="https://github.com/user-attachments/assets/97ebf9b5-afe1-411f-8f01-4ba1c0df73e1" />
+Na početku je restoran prazan tj nema jela
+<img width="1920" height="685" alt="image" src="https://github.com/user-attachments/assets/fd956237-7f5b-4562-91ef-b2287fcec1b2" />
