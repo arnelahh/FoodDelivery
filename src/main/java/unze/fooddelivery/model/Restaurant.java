@@ -1,12 +1,28 @@
 package unze.fooddelivery.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
 public class Restaurant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String location;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "restaurant_meals",
+            joinColumns = @JoinColumn(name="restaurant_id"),
+            inverseJoinColumns = @JoinColumn(name="meal_id")
+    )
+    @JsonIgnoreProperties("restaurants")
     private List<Meal> meals;
+
+    public Restaurant(){}
 
     public Restaurant(Long id, String name, String location) {
         this.id = id;
