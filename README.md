@@ -6,10 +6,12 @@ Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narud�
 
 ## Funkcionalnosti
 - Prikaz svih restorana.
-- Prikaz svih jela iz svih restorana bez ponavljajućih.
+- Brisanje restorana,
+- Dodavanje novog restorana
+- Prikaz svih jela iz svih restorana.
 - Pregled jela po odabranom restoranu.
-- Dodavanje novih restorana putem web forme.
 - Dodavanje novih jela putem web forme.
+- Brisanje jela
 - Dodavanje jela u narudžbu.
 - Jednostavno i pregledno korisničko sučelje.
 
