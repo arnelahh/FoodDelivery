@@ -14,7 +14,7 @@ public class Restaurant {
     private String name;
     private String location;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Meal> meals;
 
     @OneToMany(mappedBy = "restaurant")
@@ -43,4 +43,8 @@ public class Restaurant {
     }
 
     public void setMeals(List<Meal> meals) { this.meals = meals; }
+
+    private boolean deleted = false;
+    public boolean isDeleted() { return deleted; }
+    public void setDeleted(boolean deleted) { this.deleted = deleted; }
 }

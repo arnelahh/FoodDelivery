@@ -13,6 +13,7 @@ public class Meal {
     private Long id;
     private String name;
     private double price;
+    private boolean deleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
@@ -38,4 +39,7 @@ public class Meal {
     public void setName(String name) { this.name = name; }
     public void setPrice(double price) { this.price = price; }
     public void setRestaurant(Restaurant restaurant) { this.restaurant = restaurant; }
+
+    public boolean isDeleted() { return deleted; }
+    public void setDeleted(boolean deleted) { this.deleted = deleted; }
 }

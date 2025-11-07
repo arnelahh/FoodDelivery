@@ -20,6 +20,10 @@ public class Order {
     @Column(nullable = false)
     private Double total = 0.0;
 
+    private boolean deleted = false;
+
+    public boolean isDeleted() { return deleted; }
+    public void setDeleted(boolean deleted) { this.deleted = deleted; }
 
     @ManyToMany
     @JoinTable(
@@ -29,15 +33,8 @@ public class Order {
     )
     private List<Meal> meals = new ArrayList<>();
 
-    public void setMeals(List<Meal> meals) {
-        this.meals = meals;
-    }
 
     public Order() {}
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
 
     public Order(Restaurant restaurant) {
         this.restaurant = restaurant; // tu čuvaš restoran
@@ -48,20 +45,30 @@ public class Order {
         return restaurant; // samo vraća spremljeni restoran
     }
 
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
     public void addMeal(Meal meal) {
         meals.add(meal);
     }
 
     public List<Meal> getMeals() { return meals; }
 
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
+    }
+
     public double getTotal() {
         return meals.stream().mapToDouble(Meal::getPrice).sum();
+    }
+
+    public void setTotal(double sum) {
+        this.total = sum;
     }
 
     public Long getRestaurantId() { return restaurant.getId(); }
     public String getRestaurantName() { return restaurant.getName(); }
 
-    public void setTotal(double sum) {
-        this.total = sum;
-    }
+
 }

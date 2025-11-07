@@ -15,15 +15,18 @@ public class MealService {
     }
 
     public List<Meal> findAllByRestaurant(Long restaurantId){
-        return repo.findByRestaurantId(restaurantId);
+        return repo.findAllByRestaurantIdAndDeletedFalse(restaurantId);
     }
 
     public void save(Meal m){
         repo.save(m);
     }
 
-    public void delete(Long id){
-        repo.deleteById(id);
+    public void delete(Long id) {
+        Meal meal = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Meal not found"));
+        meal.setDeleted(true);
+        repo.save(meal);
     }
 
     public Meal findById(Long id){
@@ -31,7 +34,7 @@ public class MealService {
     }
 
     public List<Meal> findAll(){
-        return repo.findAll();
+        return repo.findAllByDeletedFalse();
     }
 }
 

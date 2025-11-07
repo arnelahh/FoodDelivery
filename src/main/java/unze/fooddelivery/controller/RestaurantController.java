@@ -7,14 +7,18 @@ import org.springframework.web.bind.annotation.*;
 import unze.fooddelivery.model.Meal;
 import unze.fooddelivery.model.Order;
 import unze.fooddelivery.model.Restaurant;
+import unze.fooddelivery.service.MealService;
 import unze.fooddelivery.service.RestaurantService;
 
 @Controller
 @RequestMapping("/restaurants")
 public class RestaurantController {
     private final RestaurantService service;
-    public RestaurantController(RestaurantService service){
+    private final MealService mealService;
+    public RestaurantController(RestaurantService service, MealService mealService)
+    {
         this.service = service;
+        this.mealService = mealService;
     }
 
 
@@ -42,9 +46,9 @@ public class RestaurantController {
     public String showRestaurantMeals(@PathVariable Long id, Model model, HttpSession session){
         Restaurant r = service.findById(id);
         model.addAttribute("restaurant", r);
-        model.addAttribute("meals", r.getMeals());
+        model.addAttribute("meals", mealService.findAllByRestaurant(id));
 
-        // Dohvati session order za taj restoran
+
         String key = "order_" + id;
         Order order = (Order) session.getAttribute(key);
         if(order == null){
