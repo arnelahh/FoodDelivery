@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order for [[${order.restaurant.name}]]</title>
+</head>
+<body>
+<h1 th:text="'Order for ' + ${order.restaurant.name}"></h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Meal</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="meal : ${order.meals}">
+        <td th:text="${meal.name}"></td>
+        <td th:text="${meal.price}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Total: $<span th:text="${order.total}"></span></h3>
+
+<a href="/restaurants/action" >Back to restaurant</a>
+</body>
+</html>

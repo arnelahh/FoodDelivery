@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 
-public class DemoData {
+/*public class DemoData {
     private static final AtomicLong restaurantId = new AtomicLong(3);
     public static final AtomicLong mealId = new AtomicLong(4);
 
@@ -17,9 +17,7 @@ public class DemoData {
     private static Map<Long, Order> orders = new HashMap<>();
 
     static {
-        Meal m1 = new Meal(1L, "Burger", 5.99);
-        Meal m2 = new Meal(2L, "Pizza", 7.99);
-        Meal m3 = new Meal(3L, "Pasta", 6.99);
+
 
         Restaurant r1 = new Restaurant(1L, "FastFood Corner", "Sarajevo");
         Restaurant r2 = new Restaurant(2L, "Italiano", "Mostar");
@@ -56,3 +54,4 @@ public class DemoData {
     public static Collection<Order> getOrders() { return orders.values(); }
 
 }
+*/

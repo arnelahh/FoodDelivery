@@ -3,6 +3,7 @@ package unze.fooddelivery.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,14 +14,12 @@ public class Restaurant {
     private String name;
     private String location;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "restaurant_meals",
-            joinColumns = @JoinColumn(name="restaurant_id"),
-            inverseJoinColumns = @JoinColumn(name="meal_id")
-    )
-    @JsonIgnoreProperties("restaurants")
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Meal> meals;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Order> orders = new ArrayList<>();
+
 
     public Restaurant(){}
 
@@ -34,6 +33,14 @@ public class Restaurant {
     public String getName() { return name; }
     public String getLocation() { return location; }
     public List<Meal> getMeals() { return meals; }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public void setMeals(List<Meal> meals) { this.meals = meals; }
 }
