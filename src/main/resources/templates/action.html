@@ -285,7 +285,8 @@
                 Total: $<span th:text="${order.total}">0.00</span>
             </div>
 
-            <form th:action="@{/orders/confirm/{restaurantId}(restaurantId=${restaurant.id})}" method="post">
+            <form   th:if="${!#lists.isEmpty(order.meals)}"
+                    th:action="@{/orders/confirm/{restaurantId}(restaurantId=${restaurant.id})}" method="post">
                 <button type="submit">✅ Confirm Order</button>
             </form>
         </div>

@@ -47,8 +47,13 @@
         }
 
         .restaurant-card:hover {
+            background: #ffeac9;
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .restaurant-card:active{
+            background: #ffe2b4;
         }
 
         .restaurant-info {
@@ -145,7 +150,8 @@
     <h1>Restaurants</h1>
 
     <div class="restaurant-list">
-        <div th:each="restaurant : ${restaurants}" class="restaurant-card">
+        <div th:each="restaurant : ${restaurants}" class="restaurant-card"
+             th:onclick="'window.location.href=\'/restaurants/action/' + ${restaurant.id} + '\';'">
             <div class="restaurant-info">
                 <a th:href="@{/restaurants/action/{id}(id=${restaurant.id})}"
                    th:text="${restaurant.name}" class="restaurant-name">Restaurant Name</a>

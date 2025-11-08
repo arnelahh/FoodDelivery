@@ -43,8 +43,21 @@ public class OrderController {
     // Confirm Order: trajno spremi u bazu i vodi na order.html
     @PostMapping("/confirm/{restaurantId}")
     public String confirmOrder(@PathVariable Long restaurantId, HttpSession session, Model model) {
+
+
+
         // dohvat iz sessiona
         Order order = (Order) session.getAttribute("order_" + restaurantId);
+
+        if (order == null || order.getMeals().isEmpty()) {
+            // Postavi poruku u model i vrati korisnika natrag na stranicu restorana
+            model.addAttribute("errorMessage", "Your order is empty! Please add at least one meal before confirming.");
+            Restaurant restaurant = restaurantService.findById(restaurantId);
+            model.addAttribute("restaurant", restaurant);
+            model.addAttribute("meals", restaurant.getMeals());
+            return "redirect:/restaurants/action/" + restaurantId; // ili kako se zove tvoja stranica sa mealovima
+        }
+
         if (order != null && !order.getMeals().isEmpty()) {
             double sum = order.getMeals().stream()
                     .mapToDouble(Meal::getPrice)
