@@ -29,6 +29,13 @@ public class OrderService {
         return orders.isEmpty() ? null : orders.get(orders.size() - 1);
     }
 
+    public List<Order> getAllOrdersById(Long restaurantId) {
+        List<Order> orders = repo.findAll();
+        return orders.stream()
+                .filter(order -> order.getRestaurantId().equals(restaurantId))
+                .toList();
+    }
+
     // SESSION-BASED: Dohvati trenutni order iz sessiona (privremeno)
     public Order getCurrentOrderForRestaurant(HttpSession session, Long restaurantId, Restaurant restaurant) {
         String key = "order_" + restaurantId;

@@ -41,6 +41,9 @@ public class Order {
         this.meals=new ArrayList<>();
     }
 
+    public Long getId() {return this.id;}
+    public void setId(Long id) {this.id = id;}
+
     public Restaurant getRestaurant() {
         return restaurant; // samo vraća spremljeni restoran
     }

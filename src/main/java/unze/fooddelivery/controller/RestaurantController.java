@@ -8,17 +8,22 @@ import unze.fooddelivery.model.Meal;
 import unze.fooddelivery.model.Order;
 import unze.fooddelivery.model.Restaurant;
 import unze.fooddelivery.service.MealService;
+import unze.fooddelivery.service.OrderService;
 import unze.fooddelivery.service.RestaurantService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/restaurants")
 public class RestaurantController {
     private final RestaurantService service;
     private final MealService mealService;
-    public RestaurantController(RestaurantService service, MealService mealService)
+    private final OrderService orderService;
+    public RestaurantController(RestaurantService service, MealService mealService, OrderService orderService)
     {
         this.service = service;
         this.mealService = mealService;
+        this.orderService = orderService;
     }
 
 
@@ -58,6 +63,18 @@ public class RestaurantController {
 
         model.addAttribute("newMeal", new Meal());
         return "action";
+    }
+
+    @GetMapping("/{id}/restaurant-orders")
+    public String showRestaurantOrders(@PathVariable Long id, Model model){
+        List<Order> orders = orderService.getAllOrdersById(id);
+        Restaurant r = service.findById(id);
+
+        model.addAttribute("restaurant", r);
+        model.addAttribute("orders", orders);
+
+        return "restaurant_order";
+
     }
 
 }

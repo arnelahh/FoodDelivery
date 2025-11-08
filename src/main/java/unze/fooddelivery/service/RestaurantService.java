@@ -3,6 +3,7 @@ package unze.fooddelivery.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unze.fooddelivery.model.Meal;
+import unze.fooddelivery.model.Order;
 import unze.fooddelivery.model.Restaurant;
 import unze.fooddelivery.repository.MealRepository;
 import unze.fooddelivery.repository.RestaurantRepository;
