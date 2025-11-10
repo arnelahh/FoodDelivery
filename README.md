@@ -1,5 +1,9 @@
 # FoodDelivery
 
+**#Članovi**
+Arnela Hodžić
+Nedžma Imamović
+
 FoodDelivery je jednostavna aplikacija za naručivanje hrane razvijena koristeći **Java**, **Spring Boot**, i **Thymeleaf** i MVC struktura. 
 Omogućava korisnicima pregled restorana, jela i dodavanje novih restorana i jela putem web sučelja.
 Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narudžbe.
@@ -12,8 +16,10 @@ Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narud�
 - Pregled jela po odabranom restoranu.
 - Dodavanje novih jela putem web forme.
 - Brisanje jela
+- Ažuriranje jela
 - Dodavanje jela u narudžbu.
 - Jednostavno i pregledno korisničko sučelje.
+- pregled narudžbi u json-u
 
 ## Tehnologije
 - **Java 25**
@@ -21,6 +27,7 @@ Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narud�
 - **Thymeleaf**
 - **Maven** za upravljanje zavisnostima
 - HTML/CSS za front-end
+- MySQL baza podataka
 
 Modeli:
 - Meal
@@ -32,29 +39,32 @@ Views:
 - restaurants
 - order
 - action
+- restaurant_order
 
 Controller:
 - AppController
+- RestaurantController
+- MealController
+- OrderController
+
+REST controller:
+- OrderRestController
 
 U prilogu slike projekta:
 1. /restaurants je prva stranica koja nas dočeka
-   <img width="1920" height="980" alt="image" src="https://github.com/user-attachments/assets/364814bb-46a9-4b65-bfc4-b7404c10db6c" />
+  <img width="1278" height="802" alt="image" src="https://github.com/user-attachments/assets/699443c9-fc94-411f-8081-6e628ec32251" />
 
-2. Pregled svih jela koja se nalaze u DemoData
-   <img width="1920" height="680" alt="image" src="https://github.com/user-attachments/assets/b9c250f7-afe5-48f7-8181-d8f0bd24b15a" />
+2. Pregled svih jela koja se nalaze u Aplikaciji
+   <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7a9fc3ec-1566-4ffb-9a8d-cad89a641e40" />
 
 3. Pregled svih jela u jednom restoranu
-  <img width="1920" height="970" alt="image" src="https://github.com/user-attachments/assets/47346ada-3c7f-451b-ab87-087fa801a6a3" />
+ <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1d955dae-475f-47eb-91cb-008614d328ce" />
 
-4. Narudžbe
-  <img width="1920" height="971" alt="image" src="https://github.com/user-attachments/assets/e6c3ff0c-0c37-4127-adf4-27e634f6bd65" />
+4. Potvrda Narudžbe
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/dc204222-41bb-4992-a007-6b88c3578390" />
 
-5. Dodavanje novog jela u restoranu (Hamburger u Fast Food)
-<img width="1920" height="970" alt="image" src="https://github.com/user-attachments/assets/13335c70-2edc-4db8-9c4b-57d5d675aa74" />
-Automatski se ažurira i spisak svih jela u aplikaciji
-<img width="1920" height="942" alt="image" src="https://github.com/user-attachments/assets/c58af08c-0e51-49e7-bfea-19b0cdbff473" />
+5. Pregled svih ordera
+   <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d59456b2-503c-4516-925d-d4f49f8cbc35" />
 
-7. Dodavanje novog restorana Chinese
-   <img width="1920" height="860" alt="image" src="https://github.com/user-attachments/assets/97ebf9b5-afe1-411f-8f01-4ba1c0df73e1" />
-Na početku je restoran prazan tj nema jela
-<img width="1920" height="685" alt="image" src="https://github.com/user-attachments/assets/fd956237-7f5b-4562-91ef-b2287fcec1b2" />
+6. Ažuriranje jela u restoranu
+    <img width="1918" height="1071" alt="image" src="https://github.com/user-attachments/assets/7e9d4352-afa1-4e71-9286-2fbd6f168857" />
