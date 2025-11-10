@@ -36,6 +36,10 @@ public class OrderService {
                 .toList();
     }
 
+    public List<Order> findAllOrders(){
+        return repo.findAll();
+    }
+
     // SESSION-BASED: Dohvati trenutni order iz sessiona (privremeno)
     public Order getCurrentOrderForRestaurant(HttpSession session, Long restaurantId, Restaurant restaurant) {
         String key = "order_" + restaurantId;

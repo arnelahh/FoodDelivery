@@ -1,5 +1,6 @@
 package unze.fooddelivery.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
+    @JsonIgnoreProperties({"meals", "orders"})
     private Restaurant restaurant;
 
     @Column(nullable = false)
@@ -31,6 +33,7 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "meal_id")
     )
+    @JsonIgnoreProperties("orders")
     private List<Meal> meals = new ArrayList<>();
 
 

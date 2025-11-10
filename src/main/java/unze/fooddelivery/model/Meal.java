@@ -17,9 +17,11 @@ public class Meal {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @JsonIgnoreProperties("meals")
     private Restaurant restaurant;
 
     @ManyToMany(mappedBy = "meals")
+    @JsonIgnoreProperties("meals")
     private List<Order> orders = new ArrayList<>();
 
 

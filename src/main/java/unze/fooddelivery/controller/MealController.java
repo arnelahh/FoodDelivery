@@ -46,4 +46,22 @@ public class MealController {
         model.addAttribute("meals", mealService.findAll());
         return "meals";
     }
+
+    @PutMapping("/update/{mealId}")
+    @ResponseBody
+    public String updateMeal(@PathVariable Long mealId,
+                             @RequestParam String name,
+                             @RequestParam double price) {
+        Meal meal = mealService.findById(mealId);
+        if (meal != null) {
+            meal.setName(name);
+            meal.setPrice(price);
+            mealService.save(meal);
+            return "OK";
+        }
+        return "Meal not found";
+    }
+
+
+
 }

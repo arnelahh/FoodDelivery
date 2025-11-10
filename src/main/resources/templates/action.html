@@ -134,7 +134,7 @@
         }
 
         .order-btn {
-            background: #ff9900;
+            background: #28a745;
             border: none;
             border-radius: 8px;
             padding: 8px 16px;
@@ -146,7 +146,7 @@
         }
 
         .order-btn:hover {
-            background: #e68a00;
+            background: #218838;
         }
 
         .delete-btn {
@@ -220,6 +220,75 @@
         .see-all-btn:hover {
             color: #b35d00;
         }
+
+        /* ✅ Ispravka za Edit dugme */
+        .edit-btn {
+            background-color: #2f7bc5;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .edit-btn:hover {
+            background-color: #2569a9;
+            transform: scale(1.05);
+        }
+
+        /* ✅ Uređena forma za inline edit */
+        .edit-form {
+            background: #fff8f0;
+            border: 1px solid #f2d7b0;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+        }
+
+        .edit-form input {
+            padding: 8px 10px;
+            border: 1px solid #d6b893;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            width: 130px;
+            background-color: #fff;
+            color: #3b2f2f;
+        }
+
+        .edit-form button {
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .edit-form button:first-of-type {
+            background: #28a745;
+            color: white;
+        }
+
+        .edit-form button:first-of-type:hover {
+            background: #218838;
+        }
+
+        .edit-form button:last-of-type {
+            background: #dc3545;
+            color: white;
+        }
+
+        .edit-form button:last-of-type:hover {
+            background: #c82333;
+        }
+
     </style>
 </head>
 <body>
@@ -240,25 +309,34 @@
         <!-- Lijeva kolona – lista jela -->
         <div class="meals-section">
 
+            <p th:if="${#lists.isEmpty(meals)}">No meals yet. Please add a new meal</p>
+            <p th:if="${!#lists.isEmpty(meals)}">Add a new meal</p>
+
+
             <form th:action="@{'/meals/add/' + ${restaurant.id}}" th:object="${newMeal}" method="post" class="add-meal-form">
                 <input type="text" th:field="*{name}" placeholder="Meal Name" required>
                 <input type="number" step="0.5" th:field="*{price}" placeholder="Price" required>
                 <button type="submit">+ Add Meal</button>
             </form>
             <div class="meals-list">
-                <div th:each="meal : ${meals}" class="meal-card">
+                <div th:each="meal : ${meals}" class="meal-card" th:attr="data-meal-id=${meal.id}">
                     <div class="meal-info">
                         <div class="meal-name" th:text="${meal.name}">Meal Name</div>
                         <div class="meal-price">$<span th:text="${meal.price}">0.00</span></div>
                     </div>
+
                     <div style="display: flex; gap: 10px;">
                         <form th:action="@{/orders/add/{restaurantId}/{mealId}(restaurantId=${restaurant.id}, mealId=${meal.id})}" method="post">
                             <button type="submit" class="order-btn">Order</button>
                         </form>
-                        <form th:action="@{/meals/delete/{restaurantId}/{mealId}(restaurantId=${restaurant.id}, mealId=${meal.id})}" method="get"
+
+                        <form th:action="@{/meals/delete/{restaurantId}/{mealId}(restaurantId=${restaurant.id}, mealId=${meal.id})}"
+                              method="get"
                               onsubmit="return confirm('Are you sure you want to delete this meal?');">
                             <button type="submit" class="delete-btn" title="Delete">🗑️</button>
                         </form>
+
+                        <button type="button" class="edit-btn" onclick="showEditForm(this)">✏️ Edit</button>
                     </div>
                 </div>
             </div>
@@ -268,13 +346,13 @@
 
         <!-- Desna kolona – Current Order -->
         <div class="current-order">
-            <div style="text-align: center; margin-bottom: 20px;">
+            <!--<div style="text-align: center; margin-bottom: 20px;">
                 <a th:href="@{/restaurants/{id}/restaurant-orders(id=${restaurant.id})}" class="see-all-btn">
                     See All Orders
                 </a>
-            </div>
+            </div> -->
             <h2>🛒 Current Order</h2>
-            <div th:if="${#lists.isEmpty(order.meals)}">No meals ordered yet.</div>
+            <div style="display: flex; justify-content: center; align-items: center; height: 100px; font-size: 1.1em; color: #555;" th:if="${#lists.isEmpty(order.meals)}">No meals ordered yet.</div>
             <ul th:if="${!#lists.isEmpty(order.meals)}">
                 <li th:each="meal : ${order.meals}">
                     <span th:text="${meal.name}">Meal Name</span>
@@ -294,3 +372,81 @@
 </div>
 </body>
 </html>
+
+
+<script>
+    function showEditForm(button) {
+        const card = button.closest(".meal-card");
+        const mealId = card.dataset.mealId;
+        const name = card.querySelector(".meal-name").innerText.trim();
+        const price = card.querySelector(".meal-price span").innerText.trim();
+
+        // ako forma već postoji — nemoj duplirati
+        if (card.querySelector(".edit-form")) return;
+
+        // sakrij sve dugmiće osim edit forme
+        card.querySelectorAll(".order-btn, .delete-btn, .edit-btn").forEach(btn => btn.style.display = "none");
+
+        const formHtml = `
+    <div class="edit-form">
+        <div class="edit-inputs">
+            <input type="text" id="name-${mealId}" value="${name}" placeholder="Meal name" />
+            <input type="number" step="0.01" id="price-${mealId}" value="${price}" placeholder="Price" />
+        </div>
+        <div class="edit-actions">
+            <button onclick="updateMeal(${mealId}, this)">💾 Save</button>
+            <button onclick="cancelEdit(this)">❌ Cancel</button>
+        </div>
+    </div>
+`;
+        card.insertAdjacentHTML("beforeend", formHtml);
+    }
+
+    function cancelEdit(button) {
+        const form = button.closest(".edit-form");
+        const card = form.closest(".meal-card");
+        form.remove();
+
+        // ponovo prikaži dugmad kad se odustane
+        card.querySelectorAll(".order-btn, .delete-btn, .edit-btn").forEach(btn => btn.style.display = "inline-block");
+    }
+
+    function updateMeal(mealId, button) {
+        const card = button.closest(".meal-card");
+        const newName = document.getElementById(`name-${mealId}`).value;
+        const newPrice = document.getElementById(`price-${mealId}`).value;
+
+        fetch(`/meals/update/${mealId}?name=${encodeURIComponent(newName)}&price=${newPrice}`, {
+            method: 'PUT'
+        })
+            .then(response => response.text())
+            .then(result => {
+                if (result === "OK") {
+                    card.querySelector(".meal-name").innerText = newName;
+                    card.querySelector(".meal-price span").innerText = parseFloat(newPrice).toFixed(2);
+                    cancelEdit(button); // zatvori formu i vrati dugmad
+                    showSuccessPopup("Meal updated successfully ✅");
+                } else {
+                    alert("Error updating meal.");
+                }
+            })
+            .catch(() => alert("Server error."));
+    }
+
+    function showSuccessPopup(message) {
+        const popup = document.createElement("div");
+        popup.innerText = message;
+        popup.style.position = "fixed";
+        popup.style.bottom = "20px";
+        popup.style.right = "20px";
+        popup.style.background = "#4CAF50";
+        popup.style.color = "white";
+        popup.style.padding = "10px 15px";
+        popup.style.borderRadius = "10px";
+        popup.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+        popup.style.zIndex = "9999";
+        document.body.appendChild(popup);
+        setTimeout(() => popup.remove(), 2500);
+    }
+</script>
+

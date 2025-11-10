@@ -15,9 +15,11 @@ public class Restaurant {
     private String location;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = false)
+    @JsonIgnoreProperties("restaurant")
     private List<Meal> meals;
 
     @OneToMany(mappedBy = "restaurant")
+    @JsonIgnoreProperties("restaurant")
     private List<Order> orders = new ArrayList<>();
 
 
