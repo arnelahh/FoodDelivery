@@ -1,49 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Current Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Details</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fff7f0;
+            background: #fff8f0;
             margin: 0;
             padding: 0;
-            color: #333;
         }
 
         .container {
             width: 90%;
-            max-width: 900px;
-            margin: 30px auto;
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         h1 {
             text-align: center;
-            font-size: 2.5rem;
-            color: #e67e22;
-            margin-bottom: 30px;
+            color: #d47900;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            background: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #e68a00;
         }
 
         .order-card {
-            background-color: #fff4e3;
+            background: #fff4e3;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             padding: 20px;
-            margin-bottom: 25px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .order-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-        }
-
-        .restaurant-name {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #d47900;
+            margin-top: 20px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
         }
 
         .meal-list {
@@ -55,79 +62,74 @@
         .meal-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            align-items: center;
+            background: #fff9f2;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            transition: background 0.2s, transform 0.1s;
         }
 
-        .meal-item:last-child {
-            border-bottom: none;
+        .meal-item:hover {
+            background: #ffeac9;
+            transform: translateY(-2px);
+        }
+
+        .meal-item span {
+            font-size: 1rem;
+            color: #3b2f2f;
         }
 
         .total {
+            margin-top: 15px;
             text-align: right;
             font-weight: 700;
-            font-size: 1.2rem;
-            margin-top: 15px;
-            color: #b25100;
+            color: #6c4b00;
+            font-size: 1.1rem;
+            border-top: 1px solid #f2d7b6;
+            padding-top: 10px;
         }
 
         .nav {
-            text-align: center;
             margin-top: 30px;
+            text-align: center;
         }
 
         .nav a {
             text-decoration: none;
-            background: #e67e22;
+            background: #ff9900;
             color: white;
             padding: 10px 18px;
             border-radius: 8px;
-            margin: 0 10px;
             font-weight: 600;
             transition: background 0.2s ease;
         }
 
         .nav a:hover {
-            background: #cf711f;
-        }
-
-        .back-btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            background: #d47900;
-            color: #fff;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: background 0.2s ease;
-        }
-
-        .back-btn:hover {
-            background: #b25100;
+            background: #e68a00;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <button onclick="history.back()" class="back-btn">⬅ Back</button>
 
-    <h1>Current Orders</h1>
 
-    <div th:each="order : ${orders}" class="order-card">
-        <div class="restaurant-name" th:text="${order.restaurantName}">Restaurant Name</div>
+    <h1 th:text="${order.restaurant.name}">Current Order</h1>
+
+    <div class="order-card">
         <ul class="meal-list">
             <li th:each="meal : ${order.meals}" class="meal-item">
                 <span th:text="${meal.name}">Meal Name</span>
-                <span>$<span th:text="${meal.price}">Price</span></span>
+                <span>$<span th:text="${meal.price}">0.00</span></span>
             </li>
         </ul>
-        <div class="total">Total: $<span th:text="${order.total}">0.0</span></div>
+        <div class="total">Total: $<span th:text="${order.total}">0.00</span></div>
     </div>
 
     <div class="nav">
-        <a th:href="@{'/restaurants/action/' + ${restaurantId}}">Back to Meals</a>
-        <a href="/restaurants">Back to Restaurants</a>
+        <a href="/restaurants">← Back to Restaurants</a>
     </div>
+
 </div>
 </body>
 </html>

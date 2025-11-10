@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Orders</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff8f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #d47900;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fffaf3;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 16px;
+        }
+
+        thead {
+            background: #ffb347;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #fff4e3;
+        }
+
+        tr:hover {
+            background: #ffeac9;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 4px 0;
+        }
+
+        .total {
+            font-weight: 700;
+            color: #6c4b00;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #e67e22;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #b35d00;
+        }
+
+        .no-orders {
+            text-align: center;
+            color: #8c7a6b;
+            font-size: 1.1rem;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/restaurants}" class="back-link">← Back to Restaurants</a>
+
+    <h1 th:text="'All Orders for ' + ${restaurant.name}">All Orders</h1>
+
+    <div th:if="${#lists.isEmpty(orders)}" class="no-orders">
+        No orders for this restaurant yet.
+    </div>
+
+    <table th:if="${!#lists.isEmpty(orders)}">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Meals</th>
+            <th>Total ($)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}">1</td>
+            <td>
+                <ul>
+                    <li th:each="meal : ${order.meals}" th:text="${meal.name}">Meal</li>
+                </ul>
+            </td>
+            <td class="total" th:text="${order.total}">0.00</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,29 +1,47 @@
 package unze.fooddelivery.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Meal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private double price;
+    private boolean deleted = false;
 
-    public Meal(Long id, String name, double price) {
-        this.id = id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    @JsonIgnoreProperties("meals")
+    private Restaurant restaurant;
+
+    @ManyToMany(mappedBy = "meals")
+    @JsonIgnoreProperties("meals")
+    private List<Order> orders = new ArrayList<>();
+
+
+    public Meal() {}
+    public Meal(String name, double price, Restaurant restaurant) {
         this.name = name;
         this.price = price;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+        this.restaurant = restaurant;
     }
 
     public Long getId() { return id; }
     public String getName() { return name; }
     public double getPrice() { return price; }
+    public Restaurant getRestaurant() { return restaurant; }
+
+    public void setId(Long id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setPrice(double price) { this.price = price; }
+    public void setRestaurant(Restaurant restaurant) { this.restaurant = restaurant; }
+
+    public boolean isDeleted() { return deleted; }
+    public void setDeleted(boolean deleted) { this.deleted = deleted; }
 }

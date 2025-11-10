@@ -1,18 +1,58 @@
 package unze.fooddelivery.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
+@Table(name = "orders")
 public class Order {
-    private Restaurant restaurant; // spremljen u konstruktoru
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    @JsonIgnoreProperties({"meals", "orders"})
+    private Restaurant restaurant;
+
+    @Column(nullable = false)
+    private Double total = 0.0;
+
+    private boolean deleted = false;
+
+    public boolean isDeleted() { return deleted; }
+    public void setDeleted(boolean deleted) { this.deleted = deleted; }
+
+    @ManyToMany
+    @JoinTable(
+            name = "order_meals",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "meal_id")
+    )
+    @JsonIgnoreProperties("orders")
     private List<Meal> meals = new ArrayList<>();
+
+
+    public Order() {}
 
     public Order(Restaurant restaurant) {
         this.restaurant = restaurant; // tu čuvaš restoran
+        this.meals=new ArrayList<>();
     }
+
+    public Long getId() {return this.id;}
+    public void setId(Long id) {this.id = id;}
 
     public Restaurant getRestaurant() {
         return restaurant; // samo vraća spremljeni restoran
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public void addMeal(Meal meal) {
@@ -21,10 +61,20 @@ public class Order {
 
     public List<Meal> getMeals() { return meals; }
 
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
+    }
+
     public double getTotal() {
         return meals.stream().mapToDouble(Meal::getPrice).sum();
     }
 
+    public void setTotal(double sum) {
+        this.total = sum;
+    }
+
     public Long getRestaurantId() { return restaurant.getId(); }
     public String getRestaurantName() { return restaurant.getName(); }
+
+
 }
