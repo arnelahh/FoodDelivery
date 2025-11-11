@@ -4,22 +4,23 @@
 [Arnela Hodžić]
 [Nedžma Imamović]
 
-FoodDelivery je jednostavna aplikacija za naručivanje hrane razvijena koristeći **Java**, **Spring Boot**, i **Thymeleaf** i MVC struktura. 
+FoodDelivery je jednostavna aplikacija za naručivanje hrane razvijena koristeći **Java**, **Spring Boot**, **MySQL**, **Thymeleaf** i MVC struktura. 
 Omogućava korisnicima pregled restorana, jela i dodavanje novih restorana i jela putem web sučelja.
 Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narudžbe.
 
 ## Funkcionalnosti
-- Prikaz svih restorana.
+- Prikaz svih restorana,
 - Brisanje restorana,
-- Dodavanje novog restorana
-- Prikaz svih jela iz svih restorana.
-- Pregled jela po odabranom restoranu.
-- Dodavanje novih jela putem web forme.
-- Brisanje jela
-- Ažuriranje jela
-- Dodavanje jela u narudžbu.
-- Jednostavno i pregledno korisničko sučelje.
-- pregled narudžbi u json-u
+- Dodavanje novog restorana,
+- Prikaz svih jela iz svih restorana,
+- Pregled narudžbi u json-u (REST Controller)
+- Pregled jela po odabranom restoranu,
+- Dodavanje novih jela putem web forme,
+- Brisanje jela,
+- Ažuriranje jela,
+- Dodavanje jela u narudžbu,
+- Jednostavno i pregledno korisničko sučelje,
+
 
 ## Tehnologije
 - **Java 25**
@@ -35,15 +36,15 @@ Modeli:
 - Order
 
 Views:
-- meals
-- restaurants
-- order
-- action
-- restaurant_order
+- meals (prikaz svih jela u aplikaciji)
+- restaurants (prikaz svih restorana u aplikaciji)
+- order (pregled ordera nakon confirm-a)
+- action (izlistava sva jela u određenom restoranu, omogućava dodavanje novih jela, brisanje, update i dodavanje jela u order)
+- restaurant_order (prikazuje sve ordere za određeni restoran)
 
 Controller:
-- AppController
-- RestaurantController
+- AppController (postavljen samo da instancira na prvu rutu /restaurants)
+- RestaurantController 
 - MealController
 - OrderController
 
