@@ -15,11 +15,12 @@ Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narud�
 - Prikaz svih jela iz svih restorana,
 - Pregled narudžbi u json-u (REST Controller)
 - Pregled jela po odabranom restoranu,
+- Pregled narudžbi u odabranom restoranu
 - Dodavanje novih jela putem web forme,
 - Brisanje jela,
 - Ažuriranje jela,
 - Dodavanje jela u narudžbu,
-- Jednostavno i pregledno korisničko sučelje,
+- Jednostavno i pregledno korisničko sučelje
 
 
 ## Tehnologije
@@ -59,7 +60,7 @@ U prilogu slike projekta:
    <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7a9fc3ec-1566-4ffb-9a8d-cad89a641e40" />
 
 3. Pregled svih jela u jednom restoranu
- <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1d955dae-475f-47eb-91cb-008614d328ce" />
+ <img width="1920" height="881" alt="image" src="https://github.com/user-attachments/assets/c9aaa614-2214-4ea9-8ae1-2c3f6b4f94f8" />
 
 4. Potvrda Narudžbe
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/dc204222-41bb-4992-a007-6b88c3578390" />
