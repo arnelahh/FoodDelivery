@@ -1,8 +1,8 @@
 # FoodDelivery
 
-**#Članovi**
-Arnela Hodžić
-Nedžma Imamović
+#Članovi tima:
+[Arnela Hodžić]
+[Nedžma Imamović]
 
 FoodDelivery je jednostavna aplikacija za naručivanje hrane razvijena koristeći **Java**, **Spring Boot**, i **Thymeleaf** i MVC struktura. 
 Omogućava korisnicima pregled restorana, jela i dodavanje novih restorana i jela putem web sučelja.
