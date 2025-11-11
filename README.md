@@ -15,11 +15,12 @@ Također omogućava korisnicima da naruče jelo i vide ukupan iznos svoje narud�
 - Prikaz svih jela iz svih restorana,
 - Pregled narudžbi u json-u (REST Controller)
 - Pregled jela po odabranom restoranu,
+- Pregled narudžbi u odabranom restoranu
 - Dodavanje novih jela putem web forme,
 - Brisanje jela,
 - Ažuriranje jela,
 - Dodavanje jela u narudžbu,
-- Jednostavno i pregledno korisničko sučelje,
+- Jednostavno i pregledno korisničko sučelje
 
 
 ## Tehnologije
@@ -58,14 +59,18 @@ U prilogu slike projekta:
 2. Pregled svih jela koja se nalaze u Aplikaciji
    <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7a9fc3ec-1566-4ffb-9a8d-cad89a641e40" />
 
-3. Pregled svih jela u jednom restoranu
- <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1d955dae-475f-47eb-91cb-008614d328ce" />
-
-4. Potvrda Narudžbe
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/dc204222-41bb-4992-a007-6b88c3578390" />
-
-5. Pregled svih ordera
+3. Pregled svih ordera (JSON)
    <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d59456b2-503c-4516-925d-d4f49f8cbc35" />
+   
+4. Pregled svih jela u jednom restoranu
+ <img width="1920" height="877" alt="image" src="https://github.com/user-attachments/assets/b328b666-dc18-4164-8599-9740fc682548" />
+
+5. Potvrda Narudžbe
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/dc204222-41bb-4992-a007-6b88c3578390" />
 
 6. Ažuriranje jela u restoranu
     <img width="1918" height="1071" alt="image" src="https://github.com/user-attachments/assets/7e9d4352-afa1-4e71-9286-2fbd6f168857" />
+
+7. Pregled svih narudžbi u jednom restoranu
+   <img width="1920" height="881" alt="image" src="https://github.com/user-attachments/assets/ff9d364b-c649-4e8c-b27d-eb855d5a23fc" />
+
