@@ -17,12 +17,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/restaurants", "/restaurants/action/", "/api/**", "/css/**", "/js/**").permitAll()
-                .requestMatchers("/restaurants/**", "/meals/**", "/orders/**").authenticated().anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults()) // default login page
+                .requestMatchers("/api/**", "/css/**", "/js/**").permitAll()
+                .anyRequest().authenticated())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()) // default login page
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/restaurants")   // gdje će otići nakon logouta
+                        .logoutSuccessUrl("/login")   // gdje će otići nakon logouta
                         .permitAll()
                 )
                 .csrf(Customizer.withDefaults()); // CSRF ostaje uključen (već imamo hidden token u formama)

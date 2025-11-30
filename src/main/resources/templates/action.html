@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title th:text="${restaurant.name}">Restaurant Meals</title>
@@ -309,11 +309,12 @@
         <!-- Lijeva kolona – lista jela -->
         <div class="meals-section">
 
-            <p th:if="${#lists.isEmpty(meals)}">No meals yet. Please add a new meal</p>
-            <p th:if="${!#lists.isEmpty(meals)}">Add a new meal</p>
+            <p sec:authorize="hasRole('ADMIN')" th:if="${#lists.isEmpty(meals)}">No meals yet. Please add a new meal</p>
+            <p sec:authorize="hasRole('ADMIN')" th:if="${!#lists.isEmpty(meals)}">Add a new meal</p>
+            <p sec:authorize="hasRole('USER')" th:if="${#lists.isEmpty(meals)}">No meals yet in this restaurant!</p>
 
 
-            <form th:action="@{'/meals/add/' + ${restaurant.id}}" th:object="${newMeal}" method="post" class="add-meal-form">
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{'/meals/add/' + ${restaurant.id}}" th:object="${newMeal}" method="post" class="add-meal-form">
                 <input type="text" th:field="*{name}" placeholder="Meal Name" required>
                 <input type="number" step="0.5" th:field="*{price}" placeholder="Price" required>
                 <button type="submit">+ Add Meal</button>
@@ -330,13 +331,13 @@
                             <button type="submit" class="order-btn">Order</button>
                         </form>
 
-                        <form th:action="@{/meals/delete/{restaurantId}/{mealId}(restaurantId=${restaurant.id}, mealId=${meal.id})}"
+                        <form sec:authorize="hasRole('ADMIN')" th:action="@{/meals/delete/{restaurantId}/{mealId}(restaurantId=${restaurant.id}, mealId=${meal.id})}"
                               method="get"
                               onsubmit="return confirm('Are you sure you want to delete this meal?');">
                             <button type="submit" class="delete-btn" title="Delete">🗑️</button>
                         </form>
 
-                        <button type="button" class="edit-btn" onclick="showEditForm(this)">✏️ Edit</button>
+                        <button sec:authorize="hasRole('ADMIN')" type="button" class="edit-btn" onclick="showEditForm(this)">✏️ Edit</button>
                     </div>
                 </div>
             </div>
